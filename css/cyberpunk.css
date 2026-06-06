@@ -166,3 +166,32 @@ h1, h2, h3, h4, .navbar-brand {
 .ftco-loader .path {
     stroke: var(--neon-cyan) !important;
 }
+
+/* Theme adjustments for blog entries in Projects section */
+.blog-entry {
+    background: var(--panel-bg);
+    border: 1px solid var(--neon-purple);
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.blog-entry:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+.blog-entry .text h3 a {
+    color: var(--neon-cyan) !important;
+}
+
+.blog-entry .meta span, .blog-entry .meta a {
+    color: var(--neon-pink) !important;
+}
+
+.blog-entry p {
+    color: var(--text-color);
+}
+
+.block-20 {
+    border-bottom: 2px solid var(--neon-purple);
+}
