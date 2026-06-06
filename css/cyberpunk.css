@@ -1,0 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
+
+:root {
+    --neon-cyan: #00f3ff;
+    --neon-pink: #ff00ff;
+    --neon-purple: #9d00ff;
+    --dark-bg: #050505;
+    --panel-bg: rgba(20, 20, 20, 0.8);
+    --text-color: #e0e0e0;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: var(--text-color);
+    font-family: 'Rajdhani', sans-serif;
+}
+
+h1, h2, h3, h4, .navbar-brand {
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.navbar-brand span {
+    color: var(--neon-cyan);
+    text-shadow: 0 0 10px var(--neon-cyan);
+}
+
+.ftco_navbar {
+    background: rgba(0, 0, 0, 0.9) !important;
+    border-bottom: 1px solid var(--neon-purple);
+}
+
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('../images/bg_1.png');
+    background-size: cover;
+}
+
+.btn-primary {
+    background-color: transparent !important;
+    border: 2px solid var(--neon-cyan) !important;
+    color: var(--neon-cyan) !important;
+    box-shadow: 0 0 10px var(--neon-cyan);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.btn-primary:hover {
+    background-color: var(--neon-cyan) !important;
+    color: #000 !important;
+    box-shadow: 0 0 20px var(--neon-cyan);
+}
+
+.resume-wrap {
+    background: var(--panel-bg);
+    border-left: 4px solid var(--neon-pink);
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 5px 5px 15px rgba(255, 0, 255, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.resume-wrap:hover {
+    transform: translateY(-5px);
+    border-left: 4px solid var(--neon-cyan);
+    box-shadow: 0 0 20px rgba(0, 243, 255, 0.2);
+}
+
+.resume-wrap .date {
+    color: var(--neon-cyan);
+    font-weight: bold;
+}
+
+.progress-wrap {
+    background: var(--panel-bg);
+    padding: 20px;
+    border: 1px solid var(--neon-purple);
+    margin-bottom: 20px;
+}
+
+.project {
+    border: 2px solid var(--neon-purple);
+    transition: all 0.3s ease;
+}
+
+.project:hover {
+    border-color: var(--neon-cyan);
+    box-shadow: 0 0 30px var(--neon-cyan);
+}
+
+.project .overlay {
+    background: rgba(157, 0, 255, 0.4);
+}
+
+/* Glitch Effect */
+.glitch {
+    position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.glitch::before {
+    left: 2px;
+    text-shadow: -2px 0 var(--neon-cyan);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim 5s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+    left: -2px;
+    text-shadow: -2px 0 var(--neon-pink);
+    clip: rect(44px, 450px, 56px, 0);
+    animation: glitch-anim2 5s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+    0% { clip: rect(10px, 9999px, 20px, 0); }
+    20% { clip: rect(30px, 9999px, 40px, 0); }
+    40% { clip: rect(50px, 9999px, 60px, 0); }
+    60% { clip: rect(70px, 9999px, 80px, 0); }
+    80% { clip: rect(90px, 9999px, 100px, 0); }
+    100% { clip: rect(110px, 9999px, 120px, 0); }
+}
+
+@keyframes glitch-anim2 {
+    0% { clip: rect(110px, 9999px, 120px, 0); }
+    20% { clip: rect(90px, 9999px, 100px, 0); }
+    40% { clip: rect(70px, 9999px, 80px, 0); }
+    60% { clip: rect(50px, 9999px, 60px, 0); }
+    80% { clip: rect(30px, 9999px, 40px, 0); }
+    100% { clip: rect(10px, 9999px, 20px, 0); }
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--neon-purple);
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--neon-cyan);
+}
+
+.ftco-footer {
+    background: #000 !important;
+    border-top: 1px solid var(--neon-purple);
+}
+
+.ftco-loader .path {
+    stroke: var(--neon-cyan) !important;
+}
