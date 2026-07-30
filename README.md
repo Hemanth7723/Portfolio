@@ -44,12 +44,6 @@ A clean, minimal, and responsive personal portfolio template to showcase project
 
 ---
 
-🤝 Contributing
-
-Contributions, suggestions, and improvements are welcome. Open an issue or a pull request and I’ll review it.
-
----
-
 📄 License
 
 This project is open — add a LICENSE file if you’d like to use a specific license.
