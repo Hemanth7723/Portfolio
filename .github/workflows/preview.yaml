@@ -1,0 +1,67 @@
+name: Temporary HTML preview for feature branch
+
+on:
+  push:
+    # Trigger whenever commits are pushed to the feature branch or any feature/* branch
+    branches:
+      - feature
+      - 'feature/**'
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Generate random suffix
+        id: rand
+        run: |
+          echo "RAND=$(openssl rand -hex 6)" >> $GITHUB_ENV
+          echo "Generated RAND=$RAND"
+
+      - name: Build preview URL and write summary
+        id: summary
+        run: |
+          # derive branch name from GITHUB_REF (refs/heads/<branch>)
+          BRANCH_NAME=${GITHUB_REF#refs/heads/}
+          PREVIEW="https://htmlpreview.github.io/?https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${BRANCH_NAME}/index.html?rand=${RAND}"
+          echo "preview_url=$PREVIEW" >> $GITHUB_OUTPUT
+          echo "Preview URL: $PREVIEW"
+          echo "## Temporary HTML preview" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "$PREVIEW" >> $GITHUB_STEP_SUMMARY
+
+      - name: Post preview URL to PR (if any)
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const crypto = require('crypto');
+            // compute branch name from context.ref (e.g., refs/heads/feature)
+            const branch = context.ref.replace('refs/heads/', '');
+            const rand = process.env.RAND || crypto.randomBytes(4).toString('hex');
+            const preview = `https://htmlpreview.github.io/?https://raw.githubusercontent.com/${context.repo.owner}/${context.repo.repo}/${branch}/index.html?rand=${rand}`;
+
+            core.info(`Preview URL: ${preview}`);
+
+            // find open PRs whose head is this branch (owner:branch)
+            const headRef = `${context.repo.owner}:${branch}`;
+            const { data: prs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              head: headRef
+            });
+
+            if (prs && prs.length > 0) {
+              const pr = prs[0];
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: `Temporary preview for branch \`${branch}\`:\n\n${preview}\n\nThis link is ephemeral and will stop working when the branch is deleted.`
+              });
+              core.info(`Posted preview URL to PR #${pr.number}`);
+            } else {
+              core.info('No open PR found for this branch. URL is printed to the Actions log and summary.');
+            }
